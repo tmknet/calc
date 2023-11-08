@@ -123,3 +123,67 @@ if( isset($_POST['submit']) ){
 
 ?>
 
+
+
+<h1>
+    Pomiar Cisnienia
+
+</h1>
+<hr>
+<h3>
+    <p>
+        <pre>
+        Pobierz dane wejściowe od użytkownika (np. pomiar ciśnienia)
+
+Sprawdź otrzymane dane ciśnienia tętniczego
+    Jeśli ciśnienie jest w normalnym zakresie (120 - 130):
+        Wyświetl komunikat - "Ciśnienie jest w normie."
+    Jeśli ciśnienie jest nieco podwyższone (130 - 140):
+        Wyświetl komunikat - "Ciśnienie jest lekko podwyższone. Monitoruj."
+    Jeśli ciśnienie jest wysokie (powyżej 140):
+        Wyświetl komunikat - "Ciśnienie jest wysokie. Skonsultuj się z lekarzem."
+    Jeśli ciśnienie jest zbyt niskie (poniżej 90):
+        Wyświetl komunikat - "Ciśnienie jest zbyt niskie. Skontaktuj się z lekarzem."
+    Dla pozostałych przypadków:
+        Wyświetl komunikat - "Nieprawidłowy odczyt ciśnienia. Spróbuj ponownie."
+
+        </pre>
+    </p>
+</h3>
+
+
+
+<form action="bloodpressure.php" method="post">
+
+<input type="number" name="pressure" id="pressure" min="0" step=".5" required>
+<input type="submit" name="submit" value="Wyslij">
+</form>
+
+<?php
+
+if( $_SERVER["REQUEST_METHOD"] == "POST"){
+    
+    $pressure = $_POST['pressure'];
+    $getDate = date('Y-m-d');
+    
+    echo "Cisnienie ".$pressure ." Dnia " .$getDate . "<br>";
+    
+    switch ( $pressure) {
+        case ($pressure >= 100 && $pressure <=125):
+            echo "Cisnienie jest w normie";
+            break;
+        case ($pressure >= 126 && $pressure <=135):
+            echo "Ciśnienie jest lekko podwyższone. Monitoruj.";
+            break;
+        case ($pressure >= 136):
+            echo "Ciśnienie jest wysokie. Skonsultuj się z lekarzem.";
+            break;
+        case ($pressure < 100):
+            echo "Ciśnienie jest zbyt niskie. Skontaktuj się z lekarzem.";
+            break;
+        default:
+            echo "Nieprawidłowy odczyt ciśnienia. Spróbuj ponownie.";
+    };
+
+}
+?>
