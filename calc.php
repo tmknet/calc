@@ -80,3 +80,46 @@ if ( $_POST['submit'] ) {
 }
 
 ?>
+
+
+<hr>
+<h1>
+    Kalkulator wynagrodzenia za prace
+</h1>
+<hr>
+<p><pre><h3>
+Pobierz od użytkownika ilość przepracowanych godzin
+Pobierz stawkę godzinową
+
+Jeśli ilość przepracowanych godzin i stawka godzinowa są liczbami:
+    Oblicz wynagrodzenie pracownika jako ilość_godzin * stawka_godzinowa
+
+    Wyświetl obliczone wynagrodzenie pracownika
+W przeciwnym wypadku:
+    Wyświetl komunikat o błędnie wprowadzonych danych
+</h3></pre></p>
+<form action="payment.php" method="post">
+    <label for="hoursWorked">Ilosc przepracowanych godzin</label><br>
+    <input type="number" name="hoursWorked" id="hoursWorked" required> 
+    <br>
+    <label for="hourlyRate">Stawka godzinowa PLN</label><br>
+    <input type="number" name="hourlyRate" id="hourlyRate" step="0.5" min="0" required><br>
+    <input type="submit" name="submit" value="Oblicz">
+</form>
+
+<?php
+
+if( isset($_POST['submit']) ){
+    $hoursWorked = $_POST['hoursWorked'];
+    $hourlyRate = $_POST['hourlyRate'];
+
+    if(is_numeric($hoursWorked) && is_numeric($hourlyRate) ){
+        $total = $hoursWorked * $hourlyRate;
+        echo "Wynagrodzenie za przepracowane godziny" .$total. "PLN";
+    } else {
+        echo "Prosze podac poprawne dane ";
+    }
+}
+
+?>
+
